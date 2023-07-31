@@ -1,4 +1,4 @@
-import React, { useState, useEffect, forwardRef } from "react";
+import React, { useState, useEffect, forwardRef, useRef } from "react";
 import Link from "next/link";
 import {
   FaSearch,
@@ -9,19 +9,13 @@ import {
 } from "react-icons/fa";
 import data from "./data";
 import styles from "../styles/Navigation.module.css";
-const LinkWrapper = forwardRef(({ href, children }, ref) => (
-  <Link href={href} ref={ref} legacyBehavior>
-    {children}
-  </Link>
-));
-const Navigation = forwardRef((props, ref) => {
+
+const Navigation = ({ menuRef, searchRef }) => {
   const [isOpen, setIsOpen] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
   const [searchTerm, setSearchTerm] = useState("");
   const [isSearchOpen, setIsSearchOpen] = useState(false);
   const [searchVisible, setSearchVisible] = useState(false);
-
-  const { menuRef, searchRef } = props;
 
   const menuToggleHandler = () => {
     setIsOpen(!isOpen);
@@ -124,10 +118,9 @@ const Navigation = forwardRef((props, ref) => {
       >
         {data.map((item) => (
           <li key={item.id} className={styles.menu_item}>
-            {/* LinkWrapper 컴포넌트로 Link 감싸기 */}
-            <LinkWrapper href={item.path} ref={ref}>
+            <Link href={item.path} legacyBehavior>
               <a>{item.title}</a>
-            </LinkWrapper>
+            </Link>
           </li>
         ))}
         <li className={styles.Login_wrap}>
@@ -145,5 +138,5 @@ const Navigation = forwardRef((props, ref) => {
       </ul>
     </nav>
   );
-});
+};
 export default Navigation;

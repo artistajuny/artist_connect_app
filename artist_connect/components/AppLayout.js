@@ -8,11 +8,11 @@ const AppLayout = ({ children }) => {
   const searchRef = useRef(null);
 
   return (
-    <div>
+    <>
       {/* Navigation 컴포넌트에 menuRef와 searchRef를 전달 */}
       <Navigation menuRef={menuRef} searchRef={searchRef} />
       {children}
-    </div>
+    </>
   );
 };
 
